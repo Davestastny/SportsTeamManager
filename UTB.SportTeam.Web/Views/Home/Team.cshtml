@@ -1,0 +1,63 @@
+@model TeamDetailViewModel
+@{
+    ViewData["Title"] = Model.Team.Name;
+}
+
+<h1>@Model.Team.Name</h1>
+<p class="text-muted">@Model.Team.Sport · @Model.Team.Category · trenér @Model.Team.CoachName</p>
+
+<h2 class="h4 mt-4">Soupiska</h2>
+<table class="table table-sm">
+    <thead>
+        <tr><th>#</th><th>Jméno</th><th>Post</th><th>Datum narození</th><th>Aktivní</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Players)
+        {
+            <tr>
+                <td>@p.JerseyNumber</td>
+                <td>@p.FullName</td>
+                <td>@p.Position</td>
+                <td>@p.DateOfBirth.ToString("d. M. yyyy")</td>
+                <td>@(p.IsActive ? "ano" : "ne")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2 class="h4 mt-4">Tréninky</h2>
+<table class="table table-sm">
+    <thead>
+        <tr><th>Datum a čas</th><th>Délka</th><th>Místo</th><th>Zaměření</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model.Trainings)
+        {
+            <tr>
+                <td>@t.StartTime.ToString("d. M. yyyy HH:mm")</td>
+                <td>@t.DurationMinutes min</td>
+                <td>@t.Location</td>
+                <td>@t.Focus</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2 class="h4 mt-4">Zápasy</h2>
+<table class="table table-sm">
+    <thead>
+        <tr><th>Datum</th><th>Soupeř</th><th>Doma/venku</th><th>Soutěž</th><th>Výsledek</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model.Matches)
+        {
+            <tr>
+                <td>@m.MatchDate.ToString("d. M. yyyy HH:mm")</td>
+                <td>@m.Opponent</td>
+                <td>@(m.IsHomeMatch ? "doma" : "venku")</td>
+                <td>@m.Competition</td>
+                <td>@(m.IsPlayed ? $"{m.GoalsFor}:{m.GoalsAgainst}" : "–")</td>
+            </tr>
+        }
+    </tbody>
+</table>
