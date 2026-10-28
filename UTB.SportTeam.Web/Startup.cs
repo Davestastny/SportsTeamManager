@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using UTB.SportTeam.Application.Abstraction;
-using UTB.SportTeam.Application.Implementation;
 using UTB.SportTeam.Domain.Entities.Interfaces.Repository;
 using UTB.SportTeam.Infrastructure.Database;
 using UTB.SportTeam.Infrastructure.Repository;
@@ -26,10 +24,6 @@ namespace UTB.SportTeam.Web
             // Generický Repository přijímá obecný DbContext → předáme mu náš SportTeamDbContext
             services.AddScoped<DbContext>(sp => sp.GetRequiredService<SportTeamDbContext>());
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
-
-            // Aplikační služby
-            services.AddScoped<ITeamAppService, TeamAppService>();
-            services.AddScoped<IPlayerAppService, PlayerAppService>();
 
             services.AddControllersWithViews();
         }

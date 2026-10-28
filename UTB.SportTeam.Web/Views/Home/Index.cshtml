@@ -1,43 +1,10 @@
-@model IndexViewModel
 @{
-    ViewData["Title"] = "Týmy";
+    ViewData["Title"] = "Home";
 }
 
-<img src="~/img/team-banner.png" alt="Správa sportovního týmu" class="img-fluid rounded mb-4" />
+<img src="~/img/team-banner.png" alt="Správa sportovního týmu" class="img-fluid mb-4" />
 
-<h1 class="mb-4">Týmy</h1>
-
-@if (Model.Teams.Count == 0)
-{
-    <p class="text-muted">Zatím nejsou založeny žádné týmy. Spusťte migraci (Update-Database), která vloží ukázková data.</p>
-}
-else
-{
-    <table class="table table-hover align-middle">
-        <thead>
-            <tr>
-                <th>Název</th>
-                <th>Sport</th>
-                <th>Kategorie</th>
-                <th>Trenér</th>
-                <th>Založen</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var team in Model.Teams)
-            {
-                <tr>
-                    <td><strong>@team.Name</strong></td>
-                    <td>@team.Sport</td>
-                    <td>@team.Category</td>
-                    <td>@team.CoachName</td>
-                    <td>@team.FoundedYear</td>
-                    <td class="text-end">
-                        <a class="btn btn-sm btn-outline-primary" asp-action="Team" asp-route-id="@team.Id">Detail</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<div class="text-center">
+    <h1 class="display-5">Správa sportovního týmu</h1>
+    <p class="lead">Plánování tréninků, sledování výkonu hráčů a statistiky zápasů.</p>
+</div>
