@@ -19,7 +19,7 @@ namespace UTB.SportTeam.Web
         {
             // Databáze – EF Core + MySQL (connection string je v appsettings.json)
             services.AddDbContext<SportTeamDbContext>(optionsBuilder =>
-                optionsBuilder.UseMySql(Configuration.GetConnectionString("MySql"), new MySqlServerVersion(new Version(8, 0, 0))));
+                optionsBuilder.UseMySQL(Configuration.GetConnectionString("MySql")!));
 
             // Generický Repository přijímá obecný DbContext → předáme mu náš SportTeamDbContext
             services.AddScoped<DbContext>(sp => sp.GetRequiredService<SportTeamDbContext>());

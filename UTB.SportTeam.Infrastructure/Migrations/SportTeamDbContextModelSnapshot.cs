@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UTB.SportTeam.Infrastructure.Database;
 
@@ -15,20 +14,16 @@ namespace UTB.SportTeam.Infrastructure.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
-            #pragma warning disable 612, 618
+#pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("UTB.SportTeam.Domain.Entities.Match", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Competition")
                         .HasMaxLength(100)
@@ -94,8 +89,6 @@ namespace UTB.SportTeam.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime(6)");
@@ -192,8 +185,6 @@ namespace UTB.SportTeam.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("Assists")
                         .HasColumnType("int");
 
@@ -221,10 +212,10 @@ namespace UTB.SportTeam.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PlayerId");
+
                     b.HasIndex("MatchId", "PlayerId")
                         .IsUnique();
-
-                    b.HasIndex("PlayerId");
 
                     b.ToTable("PlayerMatchStat");
 
@@ -297,8 +288,6 @@ namespace UTB.SportTeam.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Category")
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
@@ -341,8 +330,6 @@ namespace UTB.SportTeam.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DurationMinutes")
                         .HasColumnType("int");
@@ -398,8 +385,6 @@ namespace UTB.SportTeam.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Note")
                         .HasMaxLength(500)
@@ -506,6 +491,7 @@ namespace UTB.SportTeam.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Match");
+
                     b.Navigation("Player");
                 });
 
@@ -535,6 +521,7 @@ namespace UTB.SportTeam.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Player");
+
                     b.Navigation("Training");
                 });
 
@@ -546,13 +533,16 @@ namespace UTB.SportTeam.Infrastructure.Migrations
             modelBuilder.Entity("UTB.SportTeam.Domain.Entities.Player", b =>
                 {
                     b.Navigation("MatchStats");
+
                     b.Navigation("TrainingAttendances");
                 });
 
             modelBuilder.Entity("UTB.SportTeam.Domain.Entities.Team", b =>
                 {
                     b.Navigation("Matches");
+
                     b.Navigation("Players");
+
                     b.Navigation("Trainings");
                 });
 
@@ -560,7 +550,7 @@ namespace UTB.SportTeam.Infrastructure.Migrations
                 {
                     b.Navigation("Attendances");
                 });
-            #pragma warning restore 612, 618
+#pragma warning restore 612, 618
         }
     }
 }
